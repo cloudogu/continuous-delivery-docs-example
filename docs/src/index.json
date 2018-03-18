@@ -1,0 +1,8 @@
+{
+    "title": "Title of the Document",
+    "author": "Author of the Document",
+    "sources": [
+        "01-intro.md",
+        "02-nextPart.md"
+    ]
+}
