@@ -1,5 +1,5 @@
 #!groovy
-@Library('github.com/cloudogu/ces-build-lib@b5ce9f1')
+@Library('github.com/cloudogu/ces-build-lib@5b32f71')
 import com.cloudogu.ces.cesbuildlib.*
 
 node('docker') {
@@ -17,8 +17,10 @@ node('docker') {
 
         new Docker(this).image('kkarczmarczyk/node-yarn:8.0-wheezy')
                 .mountJenkinsUser()
-                 // Yarn calls Gulp, which uses docker images to build some PDFs. So the docker socket is needed in the container
+                // Yarn calls Gulp, which uses docker images to build some PDFs. So the docker socket is needed in the container
                 .mountDockerSocket()
+                // Image does not contain docker client, but gulp uses it. So install it.
+                .installDockerClient('17.12.1')
                 .inside() {
 
             stage('Checkout') {
@@ -26,8 +28,6 @@ node('docker') {
             }
 
             stage('Install') {
-                // Docker socket is mounted, but the docker client is not present in this container. So install it.
-                installDockerClient()
                 yarn 'install'
                 yarn 'clean'
             }
@@ -48,10 +48,5 @@ node('docker') {
 }
 
 void yarn(String args) {
-    sh "PATH=\$PWD/docker:\$PATH;yarn $args"
-}
-
-String installDockerClient() {
-    // Installs statically linked docker binary
-    sh 'wget -qc  https://download.docker.com/linux/static/stable/x86_64/docker-17.12.1-ce.tgz -O - | tar -xz'
+    sh "yarn $args"
 }
