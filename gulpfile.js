@@ -57,7 +57,7 @@ gulp.task('cloudogu-pdf', function() {
     fs.writeFileSync(meta, metaContent);
 
     const src = path.resolve(__dirname, 'docs/src');
-    let cmd = 'docker run -u $(id -u) --rm -v ' + tmp + ':/meta -v ' + src + ':/data cloudogu/doc_template:0.18.0 /meta/meta.md'
+    let cmd = 'docker run -u $(id -u) --rm  -e PLANTUML_SERVER=https://ecosystem.cloudogu.com -v ' + tmp + ':/meta -v ' + src + ':/data cloudogu/doc_template:0.17.0 /meta/meta.md'
     for (let file of files) {
         cmd += ' ' + file;
     }
