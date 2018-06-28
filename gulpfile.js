@@ -24,7 +24,7 @@ gulp.task('pdf', function() {
 
 gulp.task('odt', function() {
     const src = path.resolve(__dirname, 'docs/src');
-    let cmd = 'docker run -u $(id -u) --rm  -v ' + src + ':/data -w /data cloudogu/pandoc:0.7.0 '
+    let cmd = 'docker run -u $(id -u) --rm  -v ' + src + ':/data -w /data cloudogu/pandoc:0.6.0 '
     for (let file of files) {
         cmd += ' ' + file
     }
@@ -57,7 +57,7 @@ gulp.task('cloudogu-pdf', function() {
     fs.writeFileSync(meta, metaContent);
 
     const src = path.resolve(__dirname, 'docs/src');
-    let cmd = 'docker run -u $(id -u) --rm -v ' + tmp + ':/meta -v ' + src + ':/data cloudogu/doc_template:0.15.0 /meta/meta.md'
+    let cmd = 'docker run -u $(id -u) --rm -v ' + tmp + ':/meta -v ' + src + ':/data cloudogu/doc_template:0.18.0 /meta/meta.md'
     for (let file of files) {
         cmd += ' ' + file;
     }
