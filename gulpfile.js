@@ -24,12 +24,12 @@ gulp.task('pdf', function() {
 
 gulp.task('odt', function() {
     const src = path.resolve(__dirname, 'docs/src');
-    let cmd = 'docker run -u $(id -u) --rm  -v ' + src + ':/data -w /data cloudogu/pandoc:0.6.0 '
+    let cmd = 'docker run -u $(id -u) --rm  -v ' + src + ':/data -w /data cloudogu/pandoc:0.6.0 ';
     for (let file of files) {
         cmd += ' ' + file
     }
-    cmd += ' -o /data/document.odt'
-    execSync(cmd)
+    cmd += ' -o /data/document.odt';
+    execSync(cmd);
 
     const srcDoc = path.resolve(src, 'document.odt');
 
@@ -57,11 +57,12 @@ gulp.task('cloudogu-pdf', function() {
     fs.writeFileSync(meta, metaContent);
 
     const src = path.resolve(__dirname, 'docs/src');
-    let cmd = 'docker run -u $(id -u) --rm  -e PLANTUML_SERVER=https://ecosystem.cloudogu.com -v ' + tmp + ':/meta -v ' + src + ':/data cloudogu/doc_template:0.17.0 /meta/meta.md'
+    let cmd = 'docker run -u $(id -u) --rm  -e PLANTUML_SERVER=https://ecosystem.cloudogu.com -v ' + tmp + ':/meta ' +
+        '-v ' + src + ':/data cloudogu/doc_template:0.19.0 /meta/meta.md';
     for (let file of files) {
         cmd += ' ' + file;
     }
-    execSync(cmd)
+    execSync(cmd);
 
     const srcDoc = path.resolve(src, 'document.pdf');
 
