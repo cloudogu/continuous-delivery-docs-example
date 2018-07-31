@@ -15,7 +15,7 @@ node('docker') {
 
     catchError {
 
-        new Docker(this).image('kkarczmarczyk/node-yarn:8.0-wheezy')
+        new Docker(this).image('node:8.11.3-alpine')
                 .mountJenkinsUser()
                 // Yarn calls Gulp, which uses docker images to build some PDFs. So the docker socket is needed in the container
                 .mountDockerSocket()
