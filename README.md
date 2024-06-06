@@ -1,5 +1,7 @@
 # continuous-delivery-docs-example
 
+Note: This repository evolved into [cloudogu/reveal.js-docker](https://github.com/cloudogu/reveal.js-docker-example) and is no longer maintained here.
+
 Docs as code example that renders docs written in markdown to
   * Plain PDF (using [sindresorhus/gulp-markdown-pdf](https://github.com/sindresorhus/gulp-markdown-pdf)) - `yarn pdf`,
   * ODT (using [pandoc](http://pandoc.org/) via [cloudogu/pandoc](https://hub.docker.com/r/cloudogu/pandoc) docker image) `yarn odt`,
